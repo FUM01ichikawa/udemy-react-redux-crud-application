@@ -2,7 +2,6 @@
 //React使用に必須
 import React from 'react';
 import ReactDOM from 'react-dom';
-import thunk from 'redux-thunk'
 
 //createStore:storeを作成するための関数
 //applyMiddleware:ミドルウェアを適用するための関数（reduxからインポート）
@@ -12,11 +11,19 @@ import {createStore, applyMiddleware } from 'redux'
 //react-reduxから提供されている
 import {Provider} from 'react-redux'
 
+import thunk from 'redux-thunk'
+
+//必要なrouter関連コンポーネントをインポート
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+
+
 //
 
 import './index.css';
 import reducer from './reducers'
 import EventsIndex from './components/events_index';
+import EventsNew from './components/events_new';
 
 //本番環境のみで必要
 //import registerServiceWorker from './registerServiceWorker'
@@ -33,8 +40,15 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
-    <EventsIndex />
-  </Provider>, document.getElementById('root')
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/events/new" component={EventsNew}/>
+        <Route exact path="/" component={EventsIndex}/>
+        </Switch>
+    </BrowserRouter>
+
+  </Provider>, 
+  document.getElementById('root')
 );
 //本番環境のみで必要
 //registerServiceWorker();

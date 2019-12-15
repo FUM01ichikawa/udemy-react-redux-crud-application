@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 //イベント一覧を取得する関数のインポート
 import { readEvents } from '../actions'
 
+//map関数利用の際に活用
 import _ from 'lodash' 
+
+//
+import { Link } from 'react-router-dom'
+
 
 //クラスコンポーネント
 class EventsIndex extends Component {
@@ -33,6 +38,7 @@ class EventsIndex extends Component {
   
   render(){  
      return(
+       <React.Fragment>
         <table>
           <thead>
             <tr>
@@ -46,11 +52,15 @@ class EventsIndex extends Component {
             {this.renderEvents()}
           </tbody>
         </table>
+
+        <Link to="/events/new">New Event></Link>
+      </React.Fragment>
     )
   }
 }
 
 const mapStateToProps = state => ({ events: state.events })
+
 const mapDispatchToProps = ({ readEvents })
 
 //stateとactionをコンポーネントに関連付ける
