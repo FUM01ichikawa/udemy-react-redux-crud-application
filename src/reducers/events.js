@@ -17,13 +17,24 @@ export default ( state= initialState, action) =>{
 */
 import _ from 'lodash' //データを一括して変換するのに便利
 import { 
+  CREATE_EVENT,
   READ_EVENTS,
+  READ_EVENT,
+  UPDATE_EVENT,
   DELETE_EVENT,
 } from  '../actions'
 
 //stateは空でOK
 export default ( events = {}, action) => {
   switch (action.type) {
+    case CREATE_EVENT:
+    case READ_EVENT:
+    case UPDATE_EVENT:
+      console.log(action.response.data)
+      //evnetsオブジェクトの中の該当のeventだけを表示→更新してeventsに戻したい
+      const data = action.response.data
+      return { ...events, [data.id]:data }
+
     case READ_EVENTS:
       return _.mapKeys(action.response.data,'id')
     case DELETE_EVENT:
